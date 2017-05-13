@@ -27,3 +27,18 @@ For example with a default installation of Erlang from the `ESL Erlang Packages`
 ```bash
 ./configure --with-erlanglib=/usr/local/lib/erlang/lib/erl_interface-3.7.11/lib/ --with-erlanginc=/usr/local/lib/erlang/lib/erl_interface-3.7.11/include/
 ```
+Usage example:
+
+```php
+$msg = peb_vencode('[~p,~a]', array( array($link,'getinfo') ) ); //The sender must include a reply address. use ~p to format a link identifier to a valid Erlang pid.
+
+peb_send_byname('pong',$msg,$link);
+
+$message = peb_receive($link); $rs= peb_vdecode( $message) ; print_r($rs);
+
+$serverpid = $rs[0][0];
+
+$message = peb_vencode('[~s]', array( array('how are you') ) ); peb_send_bypid($serverpid,$message,$link); //just demo for how to use peb_send_bypid
+
+peb_close($link); ?> 
+```
